@@ -4,15 +4,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main{
+    //function that can check for a negative measurement and stop the program
+    public static void exitIfNegative(double input){
+        //check for invalid input
+        if (input <=0 ){
+            System.out.println("Invalid input (Negative or 0 measurement) - > Program exited: Rerun to try again.");
+            System.exit(0);
+        }
+    }
+
     //function to return the total paintable area for a room depending on walls and obstacles
-    static double getPaintableArea() {
+    public static double getPaintableArea() {
         //initialise scanner
         Scanner myScanner = new Scanner(System.in);
         //user input to determine wall size
         System.out.println("Input the height of the wall you need to paint in meters");
         double wallHeight= myScanner.nextDouble();
+        exitIfNegative(wallHeight);
         System.out.println("Input the width of the wall you need to paint in meters");
         double wallWidth= myScanner.nextDouble();
+        exitIfNegative(wallWidth);
 
         //total  wall base area
         double totalArea=wallHeight*wallWidth;
@@ -41,8 +52,10 @@ public class Main{
                     case 1 -> {
                         System.out.println("Input the height of rectangle in meters");
                         double obstructionHeight = myScanner.nextDouble();
+                        exitIfNegative(obstructionHeight);
                         System.out.println("Input the width of rectangle in meters");
                         double obstructionWidth = myScanner.nextDouble();
+                        exitIfNegative(obstructionWidth);
                         double obstructionArea = obstructionHeight * obstructionWidth;
                         //update new area
                         totalArea = totalArea - obstructionArea;
@@ -51,8 +64,10 @@ public class Main{
                     case 2 -> {
                         System.out.println("Input the height of triangle in meters");
                         double obstructionTriangleHeight = myScanner.nextDouble();
+                        exitIfNegative(obstructionTriangleHeight);
                         System.out.println("Input the width of triangle in meters");
                         double obstructionTriangleWidth = myScanner.nextDouble();
+                        exitIfNegative(obstructionTriangleWidth);
                         double obstructionTriangleArea = (obstructionTriangleHeight * obstructionTriangleWidth) / 2;
                         //update new area
                         totalArea = totalArea - obstructionTriangleArea;
@@ -61,6 +76,7 @@ public class Main{
                     case 3 -> {
                         System.out.println("Input the radius of the circle in meters");
                         double obstructionCircleRadius = myScanner.nextDouble();
+                        exitIfNegative(obstructionCircleRadius);
                         double obstructionCircleArea = Math.PI * Math.pow(obstructionCircleRadius, 2);
                         //update new area
                         totalArea = totalArea - obstructionCircleArea;
@@ -69,10 +85,13 @@ public class Main{
                     case 4 -> {
                         System.out.println("Input the vertical height of the trapezium in meters");
                         double obstructionTrapHeight = myScanner.nextDouble();
+                        exitIfNegative(obstructionTrapHeight);
                         System.out.println("Input the bottom width of the trapezium in meters");
                         double obstructionTrapBotWidth = myScanner.nextDouble();
+                        exitIfNegative(obstructionTrapBotWidth);
                         System.out.println("Input the top width of the trapezium in meters");
                         double obstructionTrapTopWidth = myScanner.nextDouble();
+                        exitIfNegative(obstructionTrapTopWidth);
                         double obstructionTrapArea = (obstructionTrapBotWidth + obstructionTrapTopWidth) * (obstructionTrapHeight / 2);
                         //update new area
                         totalArea = totalArea - obstructionTrapArea;
@@ -81,8 +100,10 @@ public class Main{
                     case 5 -> {
                         System.out.println("Input the vertical height between the two tips in meters");
                         double obstructionKiteHeight = myScanner.nextDouble();
+                        exitIfNegative(obstructionKiteHeight);
                         System.out.println("Input the horizontal width between the two tips in meters");
                         double obstructionKiteWidth = myScanner.nextDouble();
+                        exitIfNegative(obstructionKiteWidth);
                         double obstructionKiteArea = (obstructionKiteHeight * obstructionKiteWidth)/4;
                         //update new area
                         totalArea = totalArea - obstructionKiteArea;
@@ -91,10 +112,13 @@ public class Main{
                     case 6-> {
                         System.out.println("Input side A of the triangle in meters");
                         double A = myScanner.nextDouble();
+                        exitIfNegative(A);
                         System.out.println("Input side B of the triangle in meters");
                         double B = myScanner.nextDouble();
+                        exitIfNegative(B);
                         System.out.println("Input side C of the triangle in meters");
                         double C = myScanner.nextDouble();
+                        exitIfNegative(C);
                         //use herons formula to determine the area of a triangle with three sides known.
                         //s is the semi-perimeter of the triangle
                         double s = (A + B + C)/2;
@@ -110,7 +134,9 @@ public class Main{
         } else if (obstructionsCheck==0) {
                 return totalArea;
         } else {
-            System.out.println("Input error");
+            System.out.println("Input error - if you dont know if there are obstructions how can I, a mere machine?");
+            System.out.println("Program ended. Rerun to try again.");
+            System.exit(0);
         }
         return totalArea;
     }
@@ -128,7 +154,7 @@ public class Main{
     }
 
     //function returns largest tins that can be divided into what is needed
-    static int biggestTinsWithRemainder(double paintNeededML) {
+    public static int biggestTinsWithRemainder(double paintNeededML) {
         int[] paintVolumes = {100, 250, 500, 1000, 1500, 2000, 5000};
         int i=0;
         //catch if needed value is less than what is left so a 100ml bucket is needed
@@ -147,7 +173,7 @@ public class Main{
     }
 
     //function to return totalcost, tin size, tins needed, tin cost, how much paint is left
-    static double[] returnArrayOfTinsInfomation(double paintNeededML) {
+    public static double[] returnArrayOfTinsInfomation(double paintNeededML) {
         int[] paintVolumes = {100, 250, 500, 1000, 1500, 2000, 5000};
         double[] paintPrices = {2.50, 6.00, 10.50, 15.00, 22.50, 28.00, 50.00};
         if (paintNeededML<paintVolumes[0]){
@@ -181,14 +207,14 @@ public class Main{
         double[] paintPrices = {2.50, 6.00, 10.50, 15.00, 22.50, 28.00, 50.00};
 
         //Volume of the paint tin in ml.
-        System.out.println("From the list of paint sizes in ml below and their prices enter a number from 1-"+paintVolumes.length+" to indicate the size you would like.");
+        System.out.println("From the list of paint sizes in ml below and their prices enter a number from 1-"+paintVolumes.length+" to indicate the size of paint tin you would like.");
         System.out.println(Arrays.toString(paintVolumes));
         System.out.println(Arrays.toString(paintPrices));
         int paintVIndex= myScanner.nextInt();
-
+        System.out.println(paintVIndex);
         //check for invalid input
-        if (paintVIndex <=0 || paintVIndex>paintVolumes.length);{
-            System.out.println("Invalid input - > Program exited: Rerun to try again.");
+        if (paintVIndex <=0 || paintVIndex>paintVolumes.length){
+            System.out.println("Invalid input - > Program ended: Rerun to try again.");
             System.exit(0);
         }
 
@@ -204,11 +230,17 @@ public class Main{
         System.out.println("From the list of paints below enter a number from 1-"+paints.length+" to indicate the colour you would like.");
         System.out.println(Arrays.toString(paints));
         int paintIndex= myScanner.nextInt();
+        //check for invalid input
+        if (paintIndex <=0 || paintIndex>paints.length){
+            System.out.println("Invalid input - > Program ended: Rerun to try again.");
+            System.exit(0);
+        }
         System.out.println("Paint colour chosen: " + paints[paintIndex - 1]);
 
         //dealing with the paint selection
         System.out.println("Enter the number of walls you want to paint.");
         int walls= myScanner.nextInt();
+        exitIfNegative(walls);
 
         //initialise a total paintable area as 0
         double totalArea=0;
@@ -277,12 +309,12 @@ public class Main{
             totalCost=totalCostEfficient;
         }
 
-        //deal with if user has payment and check for stock.
+        //Ask user if they would like to have multiple coats
         System.out.println("How many coats of paint will you need?");
         int howManyCoats= myScanner.nextInt();
         if (howManyCoats==1){
             System.out.println("Then Nothing changes and the total cost is still: £" + Math.round(totalCost * 100.0) / 100.0);
-        } else if (howManyCoats==0){
+        } else if (howManyCoats<=0){
             System.out.println("You cant have zero coats you'll still need one coat the total cost is still: £" + Math.round(totalCost * 100.0) / 100.0);
         } else {
             totalCost = totalCost * howManyCoats;
@@ -294,7 +326,7 @@ public class Main{
         double userMoney= myScanner.nextInt();
         if (userMoney> totalCost || userMoney==totalCost){
             double change =userMoney - Math.round(totalCost * 100.0) / 100.0;
-            //user selected to take cost efficient tins
+            //user selected to take cost-efficient tins
             if (efficientCheck==1){
                 System.out.println("TRANSACTION COMPLETED");
                 for (int i=0; i<tinSizes.size(); i++) {
