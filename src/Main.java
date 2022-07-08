@@ -255,6 +255,19 @@ public class Main{
             wallCounter++;
         } while (wallCounter<walls);
 
+
+        //Ask user if they would like to have multiple coats
+        System.out.println("How many coats of paint will you need?");
+        int howManyCoats= myScanner.nextInt();
+        if (howManyCoats==1){
+            System.out.println("Then Nothing changes and the total area is still " + Math.round(totalArea * 100.0) / 100.0);
+        } else if (howManyCoats<=0){
+            System.out.println("You cant have zero coats you'll still need one coat the total area is still" + Math.round(totalArea * 100.0) / 100.0);
+        } else {
+            totalArea = totalArea * howManyCoats;
+        }
+
+
         //return how many tins of paint needed.
         double mlNeeded=(totalArea/paintEfficiency)*100;
         double tinsNeeded=totalArea/paintTinEfficiency;
@@ -280,7 +293,7 @@ public class Main{
 
         //System.out.println("Wall dimensions: -> Height:" + wallHeight + "m" + " Width:" + wallWidth + "m");
         System.out.println("----------------------------------------------------------------------------------------------");
-        System.out.println("Taking into account all obstruction the area needed to paint ONE COAT is: " + Math.round(totalArea * 1000.0) / 1000.0 + "m^2");
+        System.out.println("Taking into account all obstruction the area needed to paint" + howManyCoats + "coats is: " + Math.round(totalArea * 1000.0) / 1000.0 + "m^2");
         //print out array of paintable areas for each wall
         int j=1;
         System.out.println("The area for each wall that requires painting in m^2 in order of walls input");
@@ -288,8 +301,10 @@ public class Main{
             System.out.println( "Wall Area " + j + ": " +Math.round(wall * 1000.0) / 1000.0 + "m^2");
             j++;
         }
+        int tinsToBuy=(int) Math.round(Math.ceil(tinsNeeded));
+        int paintVolumeChosen=Math.round(paintTinVolume);
         System.out.println("You will need " + Math.round(mlNeeded * 1000.0) / 1000.0 + "ml of paint to cover the area");
-        System.out.println("You will need " + Math.ceil(tinsNeeded) + " " + paints[paintIndex - 1] + " tins of paint of size " + paintTinVolume + "ml.");
+        System.out.println("You will need " + tinsToBuy + " " + paints[paintIndex - 1] + " tins of paint of size " + paintVolumeChosen + "ml.");
         System.out.println("The total cost for this would be: £" + Math.round(totalCost * 100.0) / 100.0);
         System.out.println("----------------------------------------------------------------------------------------------");
 
@@ -297,7 +312,10 @@ public class Main{
         System.out.println("Or you could consider the most efficient purchase of tins for the amount of paint needed:");
         System.out.println("Following breakdown for size of tin and the amount of tins needed.");
         for (int i=0; i<tinSizes.size(); i++) {
-            System.out.println(totalTins.get(i) + " can(s) of size " + tinSizes.get(i));
+            int tins =(int)Math.round(totalTins.get(i));
+            int tinsize=(int)Math.round(tinSizes.get(i));
+
+            System.out.println(tins + " can(s) of size " + tinsize + "ml");
         }
         System.out.println("This would cost "+ totalCostEfficient);
         System.out.println("----------------------------------------------------------------------------------------------");
@@ -309,17 +327,6 @@ public class Main{
             totalCost=totalCostEfficient;
         }
 
-        //Ask user if they would like to have multiple coats
-        System.out.println("How many coats of paint will you need?");
-        int howManyCoats= myScanner.nextInt();
-        if (howManyCoats==1){
-            System.out.println("Then Nothing changes and the total cost is still: £" + Math.round(totalCost * 100.0) / 100.0);
-        } else if (howManyCoats<=0){
-            System.out.println("You cant have zero coats you'll still need one coat the total cost is still: £" + Math.round(totalCost * 100.0) / 100.0);
-        } else {
-            totalCost = totalCost * howManyCoats;
-            System.out.println("Needing "+ howManyCoats + " coats of paint will mean a now cost: £" + Math.round(totalCost * 100.0) / 100.0);
-        }
 
         //ask user for how much money they have and can pay
         System.out.println("How much money do you have?");
@@ -330,7 +337,9 @@ public class Main{
             if (efficientCheck==1){
                 System.out.println("TRANSACTION COMPLETED");
                 for (int i=0; i<tinSizes.size(); i++) {
-                    System.out.println("Sold " + totalTins.get(i) + " can(s) of size " +tinSizes.get(i) + "ml for a total cost of " + totalTinCost.get(i));
+                    int tinSize = (int)Math.round(tinSizes.get(i));
+                    int Tins = (int)Math.round(totalTins.get(i));
+                    System.out.println("Sold " + Tins + " can(s) of size " + tinSize + "ml for a total cost of " + totalTinCost.get(i));
                 }
                 System.out.println("With a total cost: £" + Math.round(totalCost * 100.0) / 100.0);
                 System.out.println("User received: £" + change + " change.");
