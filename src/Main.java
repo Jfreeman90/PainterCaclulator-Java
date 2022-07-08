@@ -59,6 +59,7 @@ public class Main{
                         double obstructionArea = obstructionHeight * obstructionWidth;
                         //update new area
                         totalArea = totalArea - obstructionArea;
+                        exitIfNegative(totalArea);
                     }
                     //if the obstruction is a triangle
                     case 2 -> {
@@ -71,6 +72,7 @@ public class Main{
                         double obstructionTriangleArea = (obstructionTriangleHeight * obstructionTriangleWidth) / 2;
                         //update new area
                         totalArea = totalArea - obstructionTriangleArea;
+                        exitIfNegative(totalArea);
                     }
                     //if the obstruction is a circle
                     case 3 -> {
@@ -80,6 +82,7 @@ public class Main{
                         double obstructionCircleArea = Math.PI * Math.pow(obstructionCircleRadius, 2);
                         //update new area
                         totalArea = totalArea - obstructionCircleArea;
+                        exitIfNegative(totalArea);
                     }
                     //if the obstruction is trapizeium
                     case 4 -> {
@@ -95,6 +98,7 @@ public class Main{
                         double obstructionTrapArea = (obstructionTrapBotWidth + obstructionTrapTopWidth) * (obstructionTrapHeight / 2);
                         //update new area
                         totalArea = totalArea - obstructionTrapArea;
+                        exitIfNegative(totalArea);
                     }
                     //if the obstruction is a kite
                     case 5 -> {
@@ -107,6 +111,7 @@ public class Main{
                         double obstructionKiteArea = (obstructionKiteHeight * obstructionKiteWidth)/4;
                         //update new area
                         totalArea = totalArea - obstructionKiteArea;
+                        exitIfNegative(totalArea);
                     }
                     //if the obstruction is any triangle with 3 sides known.
                     case 6-> {
@@ -125,6 +130,7 @@ public class Main{
                         double triangleArea=Math.sqrt(s*(s-A)*(s-B)*(s-C));
                         //update new area
                         totalArea = totalArea - triangleArea;
+                        exitIfNegative(totalArea);
                     }
                     //catch an invalid input
                     default ->
