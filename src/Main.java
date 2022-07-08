@@ -31,7 +31,7 @@ public class Main{
             for (int i = 0; i < obstructions; i++) {
                 //user input
                 //ask user the shape of the obstructions
-                System.out.println("What shape is the obstruction? 1-Square, 2-Triangle, 3-Circle, 4-Trapezium, 5-Kite");
+                System.out.println("What shape is the obstruction? 1-Square, 2-Triangle, 3-Circle, 4-Trapezium, 5-Kite, 6-Irregular triangle");
                 int obstructionShape= myScanner.nextInt();
                 //System.out.println(obstructionShape);
 
@@ -86,6 +86,21 @@ public class Main{
                         double obstructionKiteArea = (obstructionKiteHeight * obstructionKiteWidth)/4;
                         //update new area
                         totalArea = totalArea - obstructionKiteArea;
+                    }
+                    //if the obstruction is any triangle with 3 sides known.
+                    case 6-> {
+                        System.out.println("Input side A of the triangle in meters");
+                        double A = myScanner.nextDouble();
+                        System.out.println("Input side B of the triangle in meters");
+                        double B = myScanner.nextDouble();
+                        System.out.println("Input side C of the triangle in meters");
+                        double C = myScanner.nextDouble();
+                        //use herons formula to determine the area of a triangle with three sides known.
+                        //s is the semi-perimeter of the triangle
+                        double s = (A + B + C)/2;
+                        double triangleArea=Math.sqrt(s*(s-A)*(s-B)*(s-C));
+                        //update new area
+                        totalArea = totalArea - triangleArea;
                     }
                     //catch an invalid input
                     default ->
